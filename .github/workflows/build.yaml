@@ -29,7 +29,16 @@ jobs:
     steps:
     - id: 'step-0'
       uses: 'actions/checkout@v4'
+      with:
+        path: 'github-actions-typing'
     - id: 'step-1'
+      uses: 'actions/checkout@v4'
+      with:
+        repository: 'typesafegithub/github-actions-typing-catalog'
+        path: 'github-actions-typing-catalog'
+    - id: 'step-2'
+      run: 'cd github-actions-typing'
+    - id: 'step-3'
       uses: 'gradle/gradle-build-action@v3'
       with:
         arguments: 'build'

@@ -39,7 +39,18 @@ workflow(
         id = "release",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = Checkout())
+        uses(
+            action = Checkout(
+                path = "github-actions-typing"
+            )
+        )
+        uses(
+            action = Checkout(
+                repository = "typesafegithub/github-actions-typing-catalog",
+                path = "github-actions-typing-catalog"
+            )
+        )
+        run(command = "cd github-actions-typing")
         uses(action = ActionsSetupGradle())
         run(command = "./gradlew build")
 
@@ -50,7 +61,6 @@ workflow(
 
                 rm -rf dist
                 unzip -qq build/distributions/github-actions-typing.zip -d dist
-                rm -rf dist/github-actions-typing/bin
             """.trimIndent()
         )
 
